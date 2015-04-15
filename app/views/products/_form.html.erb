@@ -10,7 +10,13 @@
       </ul>
     </div>
   <% end %>
-
+ <div class="field">
+    <select name="category">
+    <% @category.each do |c| %>
+    <option value="<%= c.id %>" selected="selected"><%= c.name %></value>
+    <%end%>
+   </select>
+  </div>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
