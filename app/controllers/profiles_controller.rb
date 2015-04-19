@@ -1,6 +1,5 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-
   # GET /profiles
   # GET /profiles.json
   def index
@@ -14,7 +13,35 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/new
   def new
+    @category = Category.all
     @profile = Profile.new
+     @questions_arr = []
+
+    if params[:cat_id]
+      @cat_id =  params[:cat_id]
+      category = Category.find(params[:cat_id])
+      @product = category.products.all
+      puts @product.inspect
+    end
+
+    if params[:pro_id]
+      @pro_id = params[:pro_id]
+      puts params[:pro_id]
+      product = Product.find(params[:pro_id])
+      @sections = product.sections.all
+      # whereproduct_id in (1,2)
+      # @sections.each do |sec|
+        # @questions_arr << sec.questions.all
+        # puts @questions_arr
+      # end
+      
+    end
+
+     
+  end
+
+  def product_selection
+    puts "product selection"
   end
 
   # GET /profiles/1/edit
@@ -62,13 +89,14 @@ class ProfilesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_profile
-      @profile = Profile.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def profile_params
-      params.require(:profile).permit(:name, :email, :category_id, :product_id, :section_id, :question_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def profile_params
+    params.require(:profile).permit(:name, :email, :category_id, :product_id, :section_id, :question_id)
+  end
 end

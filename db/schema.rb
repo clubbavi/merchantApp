@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414192451) do
+ActiveRecord::Schema.define(version: 20150419064325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,14 @@ ActiveRecord::Schema.define(version: 20150414192451) do
   add_index "products_sections", ["product_id"], name: "index_products_sections_on_product_id", using: :btree
   add_index "products_sections", ["section_id"], name: "index_products_sections_on_section_id", using: :btree
 
+  create_table "profile_answeres", force: true do |t|
+    t.integer  "profile_id"
+    t.integer  "question_id"
+    t.string   "answere"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "profiles", force: true do |t|
     t.string   "name"
     t.string   "email"
@@ -60,9 +68,19 @@ ActiveRecord::Schema.define(version: 20150414192451) do
   create_table "questions", force: true do |t|
     t.string   "name"
     t.string   "question"
+    t.string   "question_type"
+    t.string   "answere"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "questions_sections", id: false, force: true do |t|
+    t.integer "section_id"
+    t.integer "question_id"
+  end
+
+  add_index "questions_sections", ["question_id"], name: "index_questions_sections_on_question_id", using: :btree
+  add_index "questions_sections", ["section_id"], name: "index_questions_sections_on_section_id", using: :btree
 
   create_table "sections", force: true do |t|
     t.string   "name"

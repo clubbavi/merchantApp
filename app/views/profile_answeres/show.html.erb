@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Profile:</strong>
+  <%= @profile_answere.profile_id %>
+</p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @profile_answere.question_id %>
+</p>
+
+<p>
+  <strong>Answere:</strong>
+  <%= @profile_answere.answere %>
+</p>
+
+<%= link_to 'Edit', edit_profile_answere_path(@profile_answere) %> |
+<%= link_to 'Back', profile_answeres_path %>

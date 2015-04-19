@@ -1,0 +1,19 @@
+<%if @cat_id != nil%>
+		
+  <label class="col-md-6 control-label" for="selectbasic">Product</label>
+  <div class="col-md-6">
+  	<select name="profile[product_id]" onchange="productfn(this.value);" class="form-control" multiple="multiple">
+			<% @product.each do |p| %>
+			<option value="<%= p.id %>" ><%= p.name %></value>
+			<%end%>
+		</select>   
+  </div>
+<%end%>
+<script>
+	function productfn(pro){
+		$.ajax({url:'<% url_for new_profile_path %>',
+		data:{"pro_id": pro},
+		dataType:'script'
+		})
+	}
+</script>

@@ -1,4 +1,9 @@
-<%= form_for(@profile) do |f| %>
+ 
+<div class="col-md-8 col-md-offset-2">
+<%= form_for(@profile,:class=>"form-horizontal") do |f| %>
+<fieldset>
+	<legend>Profile Creation<br><br> </legend>
+	 
   <% if @profile.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
@@ -10,32 +15,40 @@
       </ul>
     </div>
   <% end %>
+  <div class="form-group">
+   <label class="col-md-6 control-label" for="selectbasic">Category</label>
+  <div class="col-md-6">
+     <select name="profile[category_id]" onchange="categoryfn(this.value);" class="form-control">
+			<% @category.each do |c| %>
+			<option value="<%= c.id %>" ><%= c.name %></value>
+			<%end%>
+	</select> 
+  </div>
+  </div>
+   
+    <%=f.hidden_field :name %>
+  
+  <div id="product_slection" class="form-group" style="margin-top: 60px">
+    
+  </div>
+  <div id="section_slection" class="form-group" style="margin-top: 60px">
+    
+  </div>
+ 
+  <div class="form-group" style="margin-top: 60px">
+  <div class="col-md-2 col-md-offset-5" >
+    <%= f.submit "submit", :class =>"btn btn-success" %>
+  </div>
+</div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :category_id %><br>
-    <%= f.number_field :category_id %>
-  </div>
-  <div class="field">
-    <%= f.label :product_id %><br>
-    <%= f.number_field :product_id %>
-  </div>
-  <div class="field">
-    <%= f.label :section_id %><br>
-    <%= f.number_field :section_id %>
-  </div>
-  <div class="field">
-    <%= f.label :question_id %><br>
-    <%= f.number_field :question_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  </fieldset>
 <% end %>
+</div>
+<script>
+	function categoryfn(cat){
+		$.ajax({url:'<% url_for new_profile_path %>',
+		data:{"cat_id": cat},
+		dataType:'script'
+		})
+	}
+</script> 
