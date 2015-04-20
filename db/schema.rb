@@ -66,10 +66,12 @@ ActiveRecord::Schema.define(version: 20150419064325) do
   end
 
   create_table "questions", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "section_id"
     t.string   "name"
     t.string   "question"
     t.string   "question_type"
-    t.string   "answere"
+    t.string   "question_value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

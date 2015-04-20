@@ -2,7 +2,7 @@
 		
   <label class="col-md-6 control-label" for="selectbasic">Product</label>
   <div class="col-md-6">
-  	<select name="profile[product_id]" onchange="productfn(this.value);" class="form-control" multiple="multiple">
+  	<select id="prductfn"   onchange="productfn(this.value);" class="form-control" multiple="multiple">
 			<% @product.each do |p| %>
 			<option value="<%= p.id %>" ><%= p.name %></value>
 			<%end%>
@@ -10,10 +10,27 @@
   </div>
 <%end%>
 <script>
+
 	function productfn(pro){
 		$.ajax({url:'<% url_for new_profile_path %>',
 		data:{"pro_id": pro},
 		dataType:'script'
 		})
 	}
+	
+	 // function productfn(opt){
+	  // var selected = new Array();
+      // var count = 0;
+      // for (var intLoop=0; intLoop < opt.length; intLoop++) {
+         // if (opt[intLoop].selected) {
+              // count++;
+             // // alert(count)
+             // selected[count] = opt[intLoop].value;
+             // //console.log(selected)
+         // }
+      // }
+//        
+       // console.log(selected)
+//       
+    // }
 </script>

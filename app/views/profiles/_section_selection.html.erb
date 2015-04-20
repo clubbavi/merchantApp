@@ -1,31 +1,33 @@
 <div class="col-md-12">
 	<%if @pro_id %>
-	<%@sections.each do |sec|%>
+	<%@questions.each do |que|%>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h3 id="panel-title" class="panel-title"> <%= sec.name %> </h3>
+			<h3 id="panel-title" class="panel-title"> <%= que.section_id%>  </h3>
 		</div>
 		<div class="panel-body">
-			<% @questions_arr = sec.questions.all%>
-			<%if @questions_arr %>
 			<ul class="list-group">
-				<%@questions_arr.each do |que|%>
 				<li class="list-group-item">
-					<%= que.question %>
+					<%= que.question%>
 					<input type="hidden" value="<%= que.id %>" />
-					<%if que.question_type == "textbox" %>
+					<%if que.question_type == "Textbox" %>
 					<input type="text" />
-					<% elsif que.question_type == "dropdown" %>
-					<% dpv = que.answere.split(',')%>
-					<%= select_tag :answere, options_for_select(dpv) %>
-					<% elsif que.question_type == "radiobutton" %>
-					<% dpv = que.answere.split(',')%>
-					<%= select_tag :answere, options_for_select(dpv) %>
+					<% elsif que.question_type == "Dropdown" %>
+					<% dpv = que.question_value.split(',')%>
+					<%= select_tag :question_value, options_for_select(dpv) %>
+					<% elsif que.question_type == "Radiobutton" %>
+					<% dpv = que.question_value.split(',')%>
+					<%dpv.each do |rv|%>
+					<input type="radio" id="rb"  value=""/><%= rv %>
+					 <%end%>
+					 <% elsif que.question_type == "Checkbox" %>
+					<% dpv = que.question_value.split(',')%>
+					<%dpv.each do |rv|%>
+					<input type="checkbox" id="rb"  value=""/><%= rv %>
+					 <%end%>
 					<%end%>
 				</li>
-				<%end%>
 			</ul>
-			<%end%>
 		</div>
 	</div>
 	<%end%>

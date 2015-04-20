@@ -11,27 +11,35 @@
     </div>
   <% end %>
 <div class="field">
-    <select name="section">
+	
+	  <select name="question[product_id]">
+    <% @products.each do |p| %>
+    <option value="<%= p.id %>" selected="selected"><%= p.name %></value>
+    <%end%>
+   </select>
+   
+    <select name="question[section_id]">
     <% @sections.each do |s| %>
     <option value="<%= s.id %>" selected="selected"><%= s.name %></value>
     <%end%>
    </select>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
+   </div>
+   
+  
   <div class="field">
     <%= f.label :question %><br>
     <%= f.text_field :question %>
   </div>
   <div class="field">
-    <%= f.label :question_type %><br>
-    <%= f.text_field :question_type %>
+ <select name="question[question_type]">
+    <% @type.each do |ty| %>
+    <option value="<%= ty %>" selected="selected"><%= ty %></value>
+    <%end%>
+   </select>  
   </div>
   <div class="field">
-    <%= f.label :answere %><br>
-    <%= f.text_field :answere %>
+    <%= f.label :question_value %><br>
+    <%= f.text_field :question_value %>
   </div>
   <div class="actions">
     <%= f.submit %>
