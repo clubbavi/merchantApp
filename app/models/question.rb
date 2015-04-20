@@ -1,6 +1,3 @@
 class Question < ActiveRecord::Base
-  
-   belongs_to :section
-   belongs_to :product
-  
+  has_and_belongs_to_many :sections
 end

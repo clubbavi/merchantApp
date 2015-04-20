@@ -14,7 +14,7 @@ class SectionsController < ApplicationController
 
   # GET /sections/new
   def new
-    
+    @products = Product.all
     @section = Section.new
   end
 
@@ -25,12 +25,12 @@ class SectionsController < ApplicationController
   # POST /sections
   # POST /sections.json
   def create
-     
+    @product = Product.find(params[:product])
     @section = Section.new(section_params)
 
     respond_to do |format|
       if @section.save
-         
+         @product.sections << @section
         format.html { redirect_to @section, notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else

@@ -1,14 +1,17 @@
 <div class="col-md-12">
 	<%if @pro_id %>
-	<%@questions.each do |que|%>
+	<%@sections.each do |sec|%>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h3 id="panel-title" class="panel-title"> <%= que.section_id%>  </h3>
+			<h3 id="panel-title" class="panel-title"> <%= sec.name %> </h3>
 		</div>
 		<div class="panel-body">
+			<% @questions_arr = sec.questions.all%>
+			<%if @questions_arr %>
 			<ul class="list-group">
+				<%@questions_arr.each do |que|%>
 				<li class="list-group-item">
-					<%= que.question%>
+					<%= que.question %>
 					<input type="hidden" value="<%= que.id %>" />
 					<%if que.question_type == "Textbox" %>
 					<input type="text" />
@@ -21,13 +24,17 @@
 					<input type="radio" id="rb"  value=""/><%= rv %>
 					 <%end%>
 					 <% elsif que.question_type == "Checkbox" %>
+					 <%if que.question_value%>
 					<% dpv = que.question_value.split(',')%>
 					<%dpv.each do |rv|%>
 					<input type="checkbox" id="rb"  value=""/><%= rv %>
 					 <%end%>
+					 <%end%>
 					<%end%>
 				</li>
+				<%end%>
 			</ul>
+			<%end%>
 		</div>
 	</div>
 	<%end%>

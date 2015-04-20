@@ -11,14 +11,7 @@
     </div>
   <% end %>
 <div class="field">
-	
-	  <select name="question[product_id]">
-    <% @products.each do |p| %>
-    <option value="<%= p.id %>" selected="selected"><%= p.name %></value>
-    <%end%>
-   </select>
-   
-    <select name="question[section_id]">
+    <select name="section">
     <% @sections.each do |s| %>
     <option value="<%= s.id %>" selected="selected"><%= s.name %></value>
     <%end%>

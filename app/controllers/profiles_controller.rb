@@ -15,7 +15,7 @@ class ProfilesController < ApplicationController
   def new
     @category = Category.all
     @profile = Profile.new
-    @sec = nil
+     @questions_arr = []
 
     if params[:cat_id]
       @cat_id =  params[:cat_id]
@@ -27,12 +27,8 @@ class ProfilesController < ApplicationController
     if params[:pro_id]
       @pro_id = params[:pro_id]
       puts params[:pro_id]
-      @questions = Question.where("product_id" =>params[:pro_id])
-       
-       puts "--------------"
-       
-       puts @questions.inspect
-      
+      product = Product.find(params[:pro_id])
+      @sections = product.sections.all
       # whereproduct_id in (1,2)
       # @sections.each do |sec|
         # @questions_arr << sec.questions.all

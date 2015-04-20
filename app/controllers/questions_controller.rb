@@ -15,7 +15,6 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @sections = Section.all
-    @products = Product.all
     @question = Question.new
     @type = ["Textbox","Dropdown","ListBox","Radiobutton","Checkbox"]
   end
@@ -27,12 +26,12 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    
+    @section = Section.find(params[:section])
     @question = Question.new(question_params)
 
     respond_to do |format|
       if @question.save
-        
+        @question.sections << @section
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -74,6 +73,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:name, :question, :section, :question_type, :question_value, :product_id, :section_id)
+      params.require(:question).permit(:name, :question, :section, :question_type, :answere)
     end
 end
