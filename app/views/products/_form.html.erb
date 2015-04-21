@@ -1,31 +1,41 @@
 <%= form_for(@product) do |f| %>
-  <% if @product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<% if @product.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
 
-      <ul>
-      <% @product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
- <div class="field">
-    <select name="category">
-    <% @category.each do |c| %>
-    <option value="<%= c.id %>" selected="selected"><%= c.name %></value>
-    <%end%>
-   </select>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<ul>
+		<% @product.errors.full_messages.each do |message| %>
+		<li>
+			<%= message %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<div class="field">
+	<select name="category">
+		<%@selected_id.each do |sec_cat|%>
+		<% @category.each do |c| %>
+		<%if sec_cat == c.id%>
+		<option value="<%= c.id %>" selected="selected"><%= c.name %></value>
+			<%else%>
+			 <option value="<%= c.id %>" ><%= c.name %> </value>
+			<%end%>
+			<%end%>
+			<%end%>
+	</select>
+</div>
+<div class="field">
+	<%= f.label :name %>
+	<br>
+	<%= f.text_field :name %>
+</div>
+<div class="field">
+	<%= f.label :description %>
+	<br>
+	<%= f.text_field :description %>
+</div>
+<div class="actions">
+	<%= f.submit %>
+</div>
 <% end %>

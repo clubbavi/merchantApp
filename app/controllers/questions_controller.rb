@@ -21,6 +21,14 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
+    @type = ["Textbox","Dropdown","ListBox","Radiobutton","Checkbox"]
+     @selected_id = []
+    @sections = Section.all
+    puts"===================="
+    puts @question.sections.inspect
+    @question.sections.each do |secid|
+    @selected_id << secid.id
+    end
   end
 
   # POST /questions
@@ -44,6 +52,10 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
+     @section = Section.find(params[:section])
+     @question.sections = [@section]
+      puts"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+     puts @question.save
     respond_to do |format|
       if @question.update(question_params)
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }

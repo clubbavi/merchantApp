@@ -2,7 +2,6 @@
   <% if @question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
-
       <ul>
       <% @question.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -12,21 +11,31 @@
   <% end %>
 <div class="field">
     <select name="section">
-    <% @sections.each do |s| %>
-    <option value="<%= s.id %>" selected="selected"><%= s.name %></value>
-    <%end%>
+    	<%@selected_id.each do |sec_cat|%>
+		 <% @sections.each do |s| %>
+		<%if sec_cat == s.id%>
+		 <option value="<%= s.id %>" selected="selected"><%= s.name %></value>
+			<%else%>
+			  <option value="<%= s.id %>" ><%= s.name %></value>
+			<%end%>
+			<%end%>
+			<%end%>	
    </select>
    </div>
    
-  
   <div class="field">
     <%= f.label :question %><br>
     <%= f.text_field :question %>
   </div>
   <div class="field">
  <select name="question[question_type]">
+ 	
     <% @type.each do |ty| %>
+    <%if ty == @question.question_type %>
     <option value="<%= ty %>" selected="selected"><%= ty %></value>
+    <%else%>	
+    <option value="<%= ty %>" ><%= ty %></value>
+    <%end%>
     <%end%>
    </select>  
   </div>

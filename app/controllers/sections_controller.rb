@@ -20,6 +20,13 @@ class SectionsController < ApplicationController
 
   # GET /sections/1/edit
   def edit
+    @selected_id = []
+    @products = Product.all
+    puts"===================="
+    puts @section.products.inspect
+    @section.products.each do |proid|
+    @selected_id << proid.id
+    end
   end
 
   # POST /sections
@@ -43,6 +50,10 @@ class SectionsController < ApplicationController
   # PATCH/PUT /sections/1
   # PATCH/PUT /sections/1.json
   def update
+      @product = Product.find(params[:product])
+     @section.products = [@product]
+      puts"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+     puts @section.save
     respond_to do |format|
       if @section.update(section_params)
         format.html { redirect_to @section, notice: 'Section was successfully updated.' }

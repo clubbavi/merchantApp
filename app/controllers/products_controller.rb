@@ -16,10 +16,19 @@ class ProductsController < ApplicationController
   def new
     @category = Category.all
     @product = Product.new
+    @selected_id = nil
   end
 
   # GET /products/1/edit
   def edit
+    @selected_id = []
+    @category = Category.all
+    puts"===================="
+    puts @product.categories.inspect
+    @product.categories.each do |catid|
+      puts catid.id
+    @selected_id << catid.id
+    end
   end
 
   # POST /products
@@ -45,8 +54,13 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
+     @category = Category.find(params[:category])
+     @product.categories = [@category]
+      puts"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+     puts @product.save
     respond_to do |format|
       if @product.update(product_params)
+         
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
