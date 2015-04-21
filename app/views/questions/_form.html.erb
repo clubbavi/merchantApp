@@ -11,14 +11,19 @@
   <% end %>
 <div class="field">
     <select name="section">
-    	<%@selected_id.each do |sec_cat|%>
+    	
 		 <% @sections.each do |s| %>
+		 <%if @selected_id%>
+		 <%@selected_id.each do |sec_cat|%>
 		<%if sec_cat == s.id%>
 		 <option value="<%= s.id %>" selected="selected"><%= s.name %></value>
 			<%else%>
 			  <option value="<%= s.id %>" ><%= s.name %></value>
 			<%end%>
 			<%end%>
+			<%else%>
+			  <option value="<%= s.id %>" ><%= s.name %></value>
+			<%end%>			
 			<%end%>	
    </select>
    </div>

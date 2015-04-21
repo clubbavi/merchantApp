@@ -14,14 +14,20 @@
 <% end %>
 <div class="field">
 	<select name="category">
-		<%@selected_id.each do |sec_cat|%>
+		
 		<% @category.each do |c| %>
+		<%if @selected_id%>
+		<%@selected_id.each do |sec_cat|%>
 		<%if sec_cat == c.id%>
 		<option value="<%= c.id %>" selected="selected"><%= c.name %></value>
 			<%else%>
 			 <option value="<%= c.id %>" ><%= c.name %> </value>
 			<%end%>
 			<%end%>
+			<%else%>
+			<option value="<%= c.id %>" ><%= c.name %> </value>
+			<%end%>
+			
 			<%end%>
 	</select>
 </div>
