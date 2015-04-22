@@ -1,8 +1,7 @@
-<div class="col-md-2">
-</div>
-<div class="col-md-10">
+<div class="col-md-12">
 	<%if @pro_id %>
-	<%@sections.each do |sec|%>
+	<%@sections.each do |section|%>
+	<% section.each do |sec|%>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h3 id="panel-title" class="panel-title"> <%= sec.name %> </h3>
@@ -13,23 +12,31 @@
 			<ul class="list-group">
 				<%@questions_arr.each do |que|%>
 				<li class="list-group-item">
-					<%= que.question %>
-					<input type="hidden" value="<%= que.id %>" />
+					<%= que.question %>					 
 					<%if que.question_type == "Textbox" %>
-					<input type="text" />
+					<input name="q[<%= que.id %>]" type="text" />
 					<% elsif que.question_type == "Dropdown" %>
+					<%if que.question_value %>
 					<% dpv = que.question_value.split(',')%>
-					<%= select_tag :question_value, options_for_select(dpv) %>
+					<select name="q[<%= que.id %>]"  class="form-control">
+						<% dpv.each do |dp| %>
+						<option value="<%= dp %>" ><%= dp %></value>
+						<%end%>
+					</select> 
+					<%#= select_tag q[que.id], options_for_select(dpv) %>
+					<%end%>
 					<% elsif que.question_type == "Radiobutton" %>
+					<%if que.question_value%>
 					<% dpv = que.question_value.split(',')%>
 					<%dpv.each do |rv|%>
-					<input type="radio" id="rb"  value="" class="checkbox-inline"/><%= rv %>
+					<input name="q[<%= que.id %>]" type="radio"   value="<%= rv %>"/><%= rv %>
+					 <%end%>
 					 <%end%>
 					 <% elsif que.question_type == "Checkbox" %>
 					 <%if que.question_value%>
 					<% dpv = que.question_value.split(',')%>
 					<%dpv.each do |rv|%>
-					<input type="checkbox" id="rb"  value="" class="checkbox-inline"/><%= rv %>
+					<input name="q[<%= que.id %>]" type="checkbox"  value="<%= rv %>"/>
 					 <%end%>
 					 <%end%>
 					<%end%>
@@ -39,6 +46,7 @@
 			<%end%>
 		</div>
 	</div>
+	<%end%>
 	<%end%>
 	<%end%>
 </div>

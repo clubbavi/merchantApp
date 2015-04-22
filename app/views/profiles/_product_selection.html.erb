@@ -1,36 +1,41 @@
 <%if @cat_id != nil%>
 <label class="col-sm-2 control-label">Product</label>
     <div class="col-lg-4 m-l-n">
-    <select id="prductfn"   onchange="productfn(this.value);" class="form-control " multiple="multiple">
+    <select name="profile[product_id]" id="prductfn"   onchange="productfn(this.options);" class="form-control " multiple="multiple">
       <% @product.each do |p| %>
       <option value="<%= p.id %>" ><%= p.name %></value>
       <%end%>
     </select>     
     </div>
 <%end%>
-
 <script>
 
-	function productfn(pro){
-		$.ajax({url:'<% url_for new_profile_path %>',
-		data:{"pro_id": pro},
+	// function productfn(pro){
+		// $.ajax({url:'<#% url_for new_profile_path %>',
+		// data:{"pro_id": pro},
+		// dataType:'script'
+		// })
+	// }
+	
+	 function productfn(opt){
+	 	 
+	  var selected = new Array();
+      var count = 0;
+      for (var intLoop=0; intLoop < opt.length; intLoop++) {
+         if (opt[intLoop].selected) {
+              count++;
+             // alert(count)
+             selected[count] = opt[intLoop].value;
+              // console.log(selected)
+         }
+      }       
+        console.log(selected[1])
+        
+        $.ajax({url:'<% url_for new_profile_path %>',
+		data:{"pro_id": selected},
 		dataType:'script'
 		})
-	}
-	
-	 // function productfn(opt){
-	  // var selected = new Array();
-      // var count = 0;
-      // for (var intLoop=0; intLoop < opt.length; intLoop++) {
-         // if (opt[intLoop].selected) {
-              // count++;
-             // // alert(count)
-             // selected[count] = opt[intLoop].value;
-             // //console.log(selected)
-         // }
-      // }
-//        
-       // console.log(selected)
-//       
-    // }
+      
+    }
+    
 </script>

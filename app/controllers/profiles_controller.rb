@@ -16,6 +16,7 @@ class ProfilesController < ApplicationController
     @category = Category.all
     @profile = Profile.new
      @questions_arr = []
+     @sections  = []
 
     if params[:cat_id]
       @cat_id =  params[:cat_id]
@@ -26,15 +27,31 @@ class ProfilesController < ApplicationController
 
     if params[:pro_id]
       @pro_id = params[:pro_id]
-      puts params[:pro_id]
-      product = Product.find(params[:pro_id])
-      @sections = product.sections.all
-      # whereproduct_id in (1,2)
-      # @sections.each do |sec|
-        # @questions_arr << sec.questions.all
-        # puts @questions_arr
+      params[:pro_id].delete_at 0
+      products = Product.find(params[:pro_id])
+      puts products.inspect
+      products.each do |p|
+      if p != ''
+      @sections << p.sections.all
+      puts @sections.inspect      
+      # puts "------------------------------"  
+      # if @sections    
+      # @sections.each do |sect|
+        # puts sect.inspect
+           # sect.each do |sec|
+             # @que = sec.questions.all
+             # @que.each do |que|
+               # puts que.inspect
+               # @profile.que.build
+             # end
+           # end
       # end
+      # end
+      # puts "------------------------------"  
       
+      end
+      end
+          
     end
 
      
@@ -52,9 +69,20 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
-
     respond_to do |format|
-      if @profile.save
+        if @profile.save   
+          if params[:q]      
+        params[:q].each do |key,value|
+        puts "Param #{key}: #{value}"
+        question_answeres = ProfileAnswere.new
+        question_answeres.profile_id = @profile.id
+        question_answeres.question_id = key
+        question_answeres.answere = value
+        question_answeres.save
+        puts question_answeres.inspect      
+        end
+        end
+    
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @profile }
       else
