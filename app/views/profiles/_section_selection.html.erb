@@ -1,4 +1,6 @@
-<div class="col-md-12">
+<div class="col-md-2">
+</div>
+<div class="col-md-10">
 	<%if @pro_id %>
 	<%@sections.each do |sec|%>
 	<div class="panel panel-primary">
@@ -21,13 +23,13 @@
 					<% elsif que.question_type == "Radiobutton" %>
 					<% dpv = que.question_value.split(',')%>
 					<%dpv.each do |rv|%>
-					<input type="radio" id="rb"  value=""/><%= rv %>
+					<input type="radio" id="rb"  value="" class="checkbox-inline"/><%= rv %>
 					 <%end%>
 					 <% elsif que.question_type == "Checkbox" %>
 					 <%if que.question_value%>
 					<% dpv = que.question_value.split(',')%>
 					<%dpv.each do |rv|%>
-					<input type="checkbox" id="rb"  value=""/><%= rv %>
+					<input type="checkbox" id="rb"  value="" class="checkbox-inline"/><%= rv %>
 					 <%end%>
 					 <%end%>
 					<%end%>

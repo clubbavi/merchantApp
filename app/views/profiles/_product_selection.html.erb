@@ -1,14 +1,14 @@
 <%if @cat_id != nil%>
-		
-  <label class="col-md-6 control-label" for="selectbasic">Product</label>
-  <div class="col-md-6">
-  	<select id="prductfn"   onchange="productfn(this.value);" class="form-control" multiple="multiple">
-			<% @product.each do |p| %>
-			<option value="<%= p.id %>" ><%= p.name %></value>
-			<%end%>
-		</select>   
-  </div>
+<label class="col-sm-2 control-label">Product</label>
+    <div class="col-lg-4 m-l-n">
+    <select id="prductfn"   onchange="productfn(this.value);" class="form-control " multiple="multiple">
+      <% @product.each do |p| %>
+      <option value="<%= p.id %>" ><%= p.name %></value>
+      <%end%>
+    </select>     
+    </div>
 <%end%>
+
 <script>
 
 	function productfn(pro){

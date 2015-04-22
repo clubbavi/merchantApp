@@ -1,42 +1,78 @@
-<%= form_for(@section) do |f| %>
-  <% if @section.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@section.errors.count, "error") %> prohibited this section from being saved:</h2>
 
-      <ul>
-      <% @section.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Listing section</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                   
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+             <div class="ibox-content">             
+              <%= form_for(@section, :html => {:class => "form-horizontal"}) do |f| %>
+              <div class="form-group">
+                <% if @section.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@section.errors.count, "error") %> prohibited this section from being saved:</h2>
+
+                  <ul>
+                  <% @section.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              </div>
+              <div class="form-group">
+              <label class="col-sm-2 control-label">Product</label>
+              <div class="col-sm-10">
+               <select name="product" class="form-control m-b">      
+                 <% @products.each do |p| %>
+                 <%if @selected_id%>
+                 <%@selected_id.each do |sec_cat|%>
+                <%if sec_cat == p.id%>
+                <option value="<%= p.id %>" selected="selected"><%= p.name %></value>
+                  <%else%>
+                   <option value="<%= p.id %>"><%= p.name %></value>
+                  <%end%>
+                  <%end%>
+                  <%else%>
+                   <option value="<%= p.id %>"><%= p.name %></value>
+                  <%end%>
+                  <%end%>  
+              </select>
+           </div>
+              </div>
+              <div class="form-group">
+              <%= f.label :name ,:class => "col-sm-2 control-label"%>
+    
+              <div class="col-sm-10"> <%= f.text_field :name  ,:class => "form-control"%></div>
+              </div>  
+               <div class="form-group">
+              <%= f.label :description ,:class => "col-sm-2 control-label"%>
+    
+              <div class="col-sm-10"> <%= f.text_field :description ,:class => "form-control" %></div>
+              </div>  
+              <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                       <%= f.submit :class => "btn btn-primary" %>
+                    </div>
+                </div>
+              <% end %>
+            </div>
+            
+        </div>
     </div>
-  <% end %>
- <div class="field">
-    <select name="product">    	
-    	
-		 <% @products.each do |p| %>
-		 <%if @selected_id%>
-		 <%@selected_id.each do |sec_cat|%>
-		<%if sec_cat == p.id%>
-		<option value="<%= p.id %>" selected="selected"><%= p.name %></value>
-			<%else%>
-			 <option value="<%= p.id %>"><%= p.name %></value>
-			<%end%>
-			<%end%>
-			<%else%>
-			 <option value="<%= p.id %>"><%= p.name %></value>
-			<%end%>
-			<%end%>	 
-   </select>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
+
+
+

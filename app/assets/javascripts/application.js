@@ -11,6 +11,22 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
+//= require metisMenu/jquery.metisMenu
+//= require slimscroll/jquery.slimscroll.min
+//= require flot/jquery.flot
+//= require flot/jquery.flot.tooltip.min
+//= require flot/jquery.flot.spline
+//= require flot/jquery.flot.resize
+//= require flot/jquery.flot.pie
+//= require flot/jquery.flot.symbol
+//= require flot/jquery.flot.time
+//= require peity/jquery.peity.min
+//= require inspinia
+//= require	jquery-ui/jquery-ui.min
+//= require	jvectormap/jquery-jvectormap-1.2.2.min
+//= require	jvectormap/jquery-jvectormap-world-mill-en
+//= require easypiechart/jquery.easypiechart
+//= require sparkline/jquery.sparkline.min
+//= require validate/jquery.validate.min
 //= require turbolinks
 //= require_tree .

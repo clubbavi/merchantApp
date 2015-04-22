@@ -1,47 +1,79 @@
-<%= form_for(@product) do |f| %>
-<% if @product.errors.any? %>
-<div id="error_explanation">
-	<h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Create Product</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                   
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+             <div class="ibox-content">
+             	<%= form_for(@product , :html => {:class => "form-horizontal"}) do |f| %>
 
-	<ul>
-		<% @product.errors.full_messages.each do |message| %>
-		<li>
-			<%= message %>
-		</li>
-		<% end %>
-	</ul>
-</div>
+             	<div class="form-group">
+
+	             	<% if @product.errors.any? %>
+					<div id="error_explanation">
+						<h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+						<ul>
+							<% @product.errors.full_messages.each do |message| %>
+							<li>
+								<%= message %>
+							</li>
+							<% end %>
+						</ul>
+					</div>
+					<% end %>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Category</label>
+                    <div class="col-sm-10">	
+                    	<select name="category" class="form-control ">
+						<% @category.each do |c| %>
+						<%if @selected_id%>
+						<%@selected_id.each do |sec_cat|%>
+						<%if sec_cat == c.id%>
+						<option value="<%= c.id %>" selected="selected"><%= c.name %></value>
+							<%else%>
+							 <option value="<%= c.id %>" ><%= c.name %> </value>
+							<%end%>
+							<%end%>
+							<%else%>
+							<option value="<%= c.id %>" ><%= c.name %> </value>
+							<%end%>
+							
+							<%end%>
+						</select>
+					</div>
+                </div>
+                 <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                	<%= f.label :name,:class => "col-sm-2 control-label" %>
+				<div class="col-sm-10"><%= f.text_field :name,:class => "form-control" %>	</div>
+				</div>
+				 <div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<%= f.label :description ,:class => "col-sm-2 control-label" %>
+				<div class="col-sm-10">	<%= f.text_field :description ,:class => "form-control"%></div>
+				</div>
+				 <div class="hr-line-dashed"></div>
+				<div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                       <%= f.submit :class => "btn btn-primary" %>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
 <% end %>
-<div class="field">
-	<select name="category">
-		
-		<% @category.each do |c| %>
-		<%if @selected_id%>
-		<%@selected_id.each do |sec_cat|%>
-		<%if sec_cat == c.id%>
-		<option value="<%= c.id %>" selected="selected"><%= c.name %></value>
-			<%else%>
-			 <option value="<%= c.id %>" ><%= c.name %> </value>
-			<%end%>
-			<%end%>
-			<%else%>
-			<option value="<%= c.id %>" ><%= c.name %> </value>
-			<%end%>
-			
-			<%end%>
-	</select>
-</div>
-<div class="field">
-	<%= f.label :name %>
-	<br>
-	<%= f.text_field :name %>
-</div>
-<div class="field">
-	<%= f.label :description %>
-	<br>
-	<%= f.text_field :description %>
-</div>
-<div class="actions">
-	<%= f.submit %>
-</div>
-<% end %>
+
