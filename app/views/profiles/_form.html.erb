@@ -23,10 +23,8 @@
             </div>
              <div class="ibox-content">
              			<%= form_for(@profile,:class=>"form-horizontal new_profile") do |f| %>
-
                             <!-- <form method="post" id="new_profile" class="form-horizontal new_profile"> -->
-                               
-                                <div class="form-group"><label class="col-sm-2 control-label">Category</label>
+                               <div class="form-group"><label class="col-sm-2 control-label">Category</label>
                                     <div class="col-sm-10">
                                       <select name="profile[category_id]" onchange="categoryfn(this.value);" class="form-control m-b">
                                             <% @category.each do |c| %>
@@ -40,7 +38,7 @@
 
                                     <div class="col-sm-10"></div>
                                 </div>
-                                <div class="form-group" id="section_slection">
+                                <div style="margin-top: 50px" class="form-group" id="section_slection">
                                     <div class="col-sm-10"></div>
                                 </div>
                                
