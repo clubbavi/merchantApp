@@ -9,7 +9,7 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+//= require turbolinks
 //= require jquery
 //= require metisMenu/jquery.metisMenu
 //= require slimscroll/jquery.slimscroll.min
@@ -28,5 +28,5 @@
 //= require easypiechart/jquery.easypiechart
 //= require sparkline/jquery.sparkline.min
 //= require validate/jquery.validate.min
-//= require turbolinks
+
 //= require_tree .

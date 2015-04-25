@@ -34,6 +34,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
+ 
     @section = Section.find(params[:section])
     @question = Question.new(question_params)
 

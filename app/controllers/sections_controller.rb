@@ -37,7 +37,7 @@ class SectionsController < ApplicationController
 
     respond_to do |format|
       if @section.save
-         @product.sections << @section
+         @section.products << @product
         format.html { redirect_to @section, notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else

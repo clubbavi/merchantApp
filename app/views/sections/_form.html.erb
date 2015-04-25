@@ -35,7 +35,7 @@
               <div class="form-group">
               <label class="col-sm-2 control-label">Product</label>
               <div class="col-sm-10">
-               <select name="product" class="form-control m-b">      
+               <select name="product[]" class="form-control m-b" multiple="multiple">      
                  <% @products.each do |p| %>
                  <%if @selected_id%>
                  <%@selected_id.each do |sec_cat|%>
