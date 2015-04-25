@@ -46,7 +46,7 @@ class QuestionsController < ApplicationController
       if @question.save
         @question.sections << @section
         @question.products << products
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html { redirect_to questions_url, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
         format.html { render :new }
