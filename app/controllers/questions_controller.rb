@@ -22,25 +22,30 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @type = ["Textbox","Dropdown","ListBox","Radiobutton","Checkbox"]
-     @selected_id = []
+    @selected_id = []
+    @selected_product_id = []
     @sections = Section.all
-    puts"===================="
     puts @question.sections.inspect
     @question.sections.each do |secid|
-    @selected_id << secid.id
+      @selected_id << secid.id
+    end
+
+    @question.products.each do |proid|
+      @selected_product_id << proid.id
     end
   end
 
   # POST /questions
   # POST /questions.json
   def create
- 
+    products = Product.find(params[:product])
     @section = Section.find(params[:section])
     @question = Question.new(question_params)
 
     respond_to do |format|
       if @question.save
         @question.sections << @section
+        @question.products << products
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -53,10 +58,11 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
-     @section = Section.find(params[:section])
-     @question.sections = [@section]
-      puts"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-     puts @question.save
+    @product = Product.find(params[:product])
+    @section = Section.find(params[:section])
+    @question.sections = [@section]
+    @question.products = [@product]
+    @question.save
     respond_to do |format|
       if @question.update(question_params)
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
