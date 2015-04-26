@@ -11,6 +11,7 @@
 // about supported directives.
 //= require turbolinks
 //= require jquery
+//= require bootstrap
 //= require metisMenu/jquery.metisMenu
 //= require slimscroll/jquery.slimscroll.min
 //= require flot/jquery.flot
