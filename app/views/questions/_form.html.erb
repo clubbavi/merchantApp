@@ -33,24 +33,46 @@
 					</div>
 					<% end %>
 				</div>
+				
 				<div class="form-group">
-					<label class="col-sm-2 control-label">Section</label>
+					<label class="col-sm-2 control-label">Associate with Product</label>
 					<div class="col-sm-10">
-						<select name="section[]" class="form-control" multiple="multiple">
-							<% @sections.each do |s| %>
-							<%if @selected_id%>
-							<%@selected_id.each do |sec_cat|%>
-							<%if sec_cat == s.id%>
-							<option value="<%= s.id %>" selected="selected"><%= s.name %></value>
-								<%else%> <option value="<%= s.id %>" ><%= s.name %></value>
-								<%end%>
-								<%end%>
-								<%else%> <option value="<%= s.id %>" ><%= s.name %></value>
-								<%end%>
-								<%end%>
+						<select name="product[]" class="form-control" multiple="multiple">
+							<% Product.all.each do |product| %>
+								<% if @selected_product_id.present? %>
+									<%if @selected_product_id.include? (product.id) %> 
+											<option value="<%= product.id %>" selected="selected"><%= product.name %></option>
+										<% else %> 
+											<option value="<%= product.id %>" ><%= product.name %></option> 
+									<% end %>
+								<% else %> 
+									<option value="<%= product.id %>" ><%= product.name %></option>
+								<% end %>
+							<% end %>
 						</select>
 					</div>
 				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Associate with Section</label>
+					<div class="col-sm-10">
+						<select name="section[]" class="form-control" multiple="multiple">
+							<% @sections.each do |s| %>
+								<% if @selected_id.present? %>
+									<%if @selected_id.include? (s.id) %>
+											<option value="<%= s.id %>" selected="selected"><%= s.name %></option>
+										<% else %> 
+											<option value="<%= s.id %>" ><%= s.name %></option>
+									<% end %>
+								<% else %> 
+									<option value="<%= s.id %>" ><%= s.name %></option>
+								<% end %>
+							<% end %>
+						</select>
+					</div>
+				</div>
+				
+				 
 				<div class="hr-line-dashed"></div>
 				<div class="form-group">
 					<%= f.label :question,:class => "col-sm-2 control-label" %>
@@ -62,24 +84,25 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Input Type</label>
 					<div class="col-sm-10">
-						<select name="question[question_type]">
-
+						<select id="question" name="question[question_type]" class="form-control">
 							<% @type.each do |ty| %>
-							<%if ty == @question.question_type %>
-							<option value="<%= ty %>" selected="selected"><%= ty %></value>
-								<%else%> <option value="<%= ty %>" ><%= ty %></value>
+								<% if ty == @question.question_type %>
+									<option value="<%= ty %>" selected="selected"><%= ty %></option>
+								<%else%> 
+									<option value="<%= ty %>" ><%= ty %></option>
 								<%end%>
-								<%end%>
+							<%end%>
 						</select>
 					</div>
 				</div>
 				<div class="hr-line-dashed"></div>
-				<div class="form-group">
+				<div class="form-group" id="question_value">
 					<%= f.label :question_value ,:class => "col-sm-2 control-label" %>
 					<div class="col-sm-10">
 						<%= f.text_field :question_value ,:class => "form-control"%>
 					</div>
 				</div>
+				
 				<div class="hr-line-dashed"></div>
 				<div class="form-group">
 					 <div class="col-sm-2"></div>
@@ -91,5 +114,18 @@
 			</div>
 		</div>
 	</div>
-	<% end %>
+<% end %>
+
+<script>
+$(document).ready(function (e) {
+    $('#question').change(function () {
+        if ($(this).val() == 'Listbox' || $(this).val() == 'Dropdown' || $(this).val() == 'Radiobutton') {
+            $('#question_value').show();
+        } else {
+            $('#question_value').hide();
+        }
+    });
+});
+</script>
+ 
 

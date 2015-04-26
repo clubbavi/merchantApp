@@ -16,12 +16,12 @@ class QuestionsController < ApplicationController
   def new
     @sections = Section.all
     @question = Question.new
-    @type = ["Textbox","Dropdown","ListBox","Radiobutton","Checkbox"]
+    @type = ["Textbox","Dropdown","Listbox","Radiobutton","Checkbox"]
   end
 
   # GET /questions/1/edit
   def edit
-    @type = ["Textbox","Dropdown","ListBox","Radiobutton","Checkbox"]
+    @type = ["Textbox","Dropdown","Listbox","Radiobutton","Checkbox"]
     @selected_id = []
     @selected_product_id = []
     @sections = Section.all
@@ -47,7 +47,7 @@ class QuestionsController < ApplicationController
         @question.sections << @section
         @question.products << products
         format.html { redirect_to questions_url, notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
+        format.json { render :index, status: :created, location: @question }
       else
         format.html { render :new }
         format.json { render json: @question.errors, status: :unprocessable_entity }
@@ -60,13 +60,13 @@ class QuestionsController < ApplicationController
   def update
     @product = Product.find(params[:product])
     @section = Section.find(params[:section])
-    @question.sections = [@section]
-    @question.products = [@product]
+    @question.sections = @section
+    @question.products = @product
     @question.save
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question }
+        format.html { redirect_to questions_url, notice: 'Question was successfully updated.' }
+        format.json { render :index, status: :ok, location: @question }
       else
         format.html { render :edit }
         format.json { render json: @question.errors, status: :unprocessable_entity }

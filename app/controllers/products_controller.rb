@@ -23,10 +23,7 @@ class ProductsController < ApplicationController
   def edit
     @selected_id = []
     @category = Category.all
-    puts"===================="
-    puts @product.categories.inspect
     @product.categories.each do |catid|
-      puts catid.id
     @selected_id << catid.id
     end
   end
@@ -40,7 +37,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         @product.categories << @category
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { redirect_to products_url, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -59,7 +56,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.update(product_params)
          
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.html { redirect_to products_url, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }

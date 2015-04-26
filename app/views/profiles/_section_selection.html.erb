@@ -23,7 +23,17 @@
 						<option value="<%= dp %>" ><%= dp %></value>
 						<%end%>
 					</select> 
-					<%#= select_tag q[que.id], options_for_select(dpv) %>
+					<!-- <#%#= select_tag q[que.id], options_for_select(dpv) %> -->
+					<%end%>
+					<% elsif que.question_type == "Listbox" %>
+					<%if que.question_value %>
+					<% dpv = que.question_value.split(',')%>
+					<select name="q[<%= que.id %>]"  class="form-control" multiple="multiple">
+						<% dpv.each do |dp| %>
+						<option value="<%= dp %>" ><%= dp %></value>
+						<%end%>
+					</select> 
+					<!-- <%#= select_tag q[que.id], options_for_select(dpv) %> -->
 					<%end%>
 					<% elsif que.question_type == "Radiobutton" %>
 					<%if que.question_value%>
@@ -33,12 +43,7 @@
 					 <%end%>
 					 <%end%>
 					 <% elsif que.question_type == "Checkbox" %>
-					 <%if que.question_value%>
-					<% dpv = que.question_value.split(',')%>
-					<%dpv.each do |rv|%>
-					<input name="q[<%= que.id %>]" type="checkbox"  value="<%= rv %>"/>
-					 <%end%>
-					 <%end%>
+					 <input name="q[<%= que.id %>]" type="checkbox"  value="<%= que.question %>"/>
 					<%end%>
 				</li>
 				<%end%>

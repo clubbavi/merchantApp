@@ -38,7 +38,7 @@ class SectionsController < ApplicationController
     respond_to do |format|
       if @section.save
          @section.products << @product
-        format.html { redirect_to @section, notice: 'Section was successfully created.' }
+        format.html { redirect_to sections_url, notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
         format.html { render :new }
@@ -51,12 +51,12 @@ class SectionsController < ApplicationController
   # PATCH/PUT /sections/1.json
   def update
       @product = Product.find(params[:product])
-     @section.products = [@product]
+     @section.products = @product
       puts"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
      puts @section.save
     respond_to do |format|
       if @section.update(section_params)
-        format.html { redirect_to @section, notice: 'Section was successfully updated.' }
+        format.html { redirect_to sections_url, notice: 'Section was successfully updated.' }
         format.json { render :show, status: :ok, location: @section }
       else
         format.html { render :edit }
