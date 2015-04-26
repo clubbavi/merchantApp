@@ -5,6 +5,10 @@ class ProfilesController < ApplicationController
   def index
     @profiles = Profile.all
   end
+  
+  def list
+    @profiles = Profile.all
+  end
 
   # GET /profiles/1
   # GET /profiles/1.json
@@ -83,7 +87,7 @@ class ProfilesController < ApplicationController
         end
         end
     
-        format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
+        format.html { redirect_to profile_list_path, notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @profile }
       else
         format.html { render :new }
@@ -125,6 +129,6 @@ class ProfilesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def profile_params
-    params.require(:profile).permit(:name, :email, :category_id, :product_id, :section_id, :question_id)
+    params.require(:profile).permit(:name, :email, :category_id,  :section_id, :question_id, :product_id => [])
   end
 end

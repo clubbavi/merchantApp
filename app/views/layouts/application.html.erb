@@ -2,36 +2,35 @@
 <html>
 	<head>
 		<title>MerchantApp</title>
- <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-
- 
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 		<%= csrf_meta_tags %>
 	</head>
 	<body class="pace-done">
-	<div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="-webkit-transform: translate3d(100%, 0px, 0px); transform: translate3d(100%, 0px, 0px);">
-  <div class="pace-progress-inner"></div>
-</div>
-<div class="pace-activity"></div></div>
+		<div class="pace  pace-inactive">
+			<div class="pace-progress" data-progress-text="100%" data-progress="99" style="-webkit-transform: translate3d(100%, 0px, 0px); transform: translate3d(100%, 0px, 0px);">
+				<div class="pace-progress-inner"></div>
+			</div>
+			<div class="pace-activity"></div>
+		</div>
 		<div id="wrapper">
-
 			<nav class="navbar-default navbar-static-side" role="navigation" >
 				<div class="sidebar-collapse">
 					<ul class="nav" id="side-menu">
 						<li class="nav-header">
 							<div class="dropdown profile-element">
-								<span>  </span>
+								<span> </span>
 								<a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Saran</strong> </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
 								<ul class="dropdown-menu animated fadeInRight m-t-xs">
 									<li>
-										<a  >Contacts</a>
+										<a>Contacts</a>
 									</li>
 									<li>
-										<a  >Mailbox</a>
+										<a>Mailbox</a>
 									</li>
 									<li class="divider"></li>
 									<li>
-										<a  >Logout</a>
+										<a>Logout</a>
 									</li>
 								</ul>
 							</div>
@@ -65,6 +64,9 @@
 								<li>
 									<%= link_to 'Create Profile', new_profile_path %>
 								</li>
+								<li>
+									<%= link_to 'Profiles', profile_list_path %>
+								</li>
 							</ul>
 						</li>
 
@@ -92,7 +94,7 @@
 								<ul class="dropdown-menu dropdown-messages">
 									<li>
 										<div class="dropdown-messages-box">
-											<a href="profile.html" class="pull-left">  </a>
+											<a href="profile.html" class="pull-left"> </a>
 											<div>
 												<small class="pull-right">46h ago</small>
 												<strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>.
@@ -104,7 +106,7 @@
 									<li class="divider"></li>
 									<li>
 										<div class="dropdown-messages-box">
-											<a href="profile.html" class="pull-left">   </a>
+											<a href="profile.html" class="pull-left"> </a>
 											<div>
 												<small class="pull-right text-navy">5h ago</small>
 												<strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>.
@@ -174,29 +176,25 @@
 						</ul>
 
 					</nav>
-			
-</div><div class="wrapper wrapper-content">
-        <div class="row">
-            <div class="col-lg-12">
-                
- 				<%= yield %>
-                </div>
-            </div>
-</div>
-<div class="footer">
-            <div class="pull-right">
-                10GB of <strong>250GB</strong> Free.
-            </div>
-            <div>
-                <strong>Copyright</strong> Example Company © 2014-2015
-            </div>
-        </div>
-</div>
 
+				</div>
+				<div class="wrapper wrapper-content">
+					<div class="row">
+						<div class="col-lg-12">
 
-
-
-
+							<%= yield %>
+						</div>
+					</div>
+				</div>
+				<div class="footer">
+					<div class="pull-right">
+						10GB of <strong>250GB</strong> Free.
+					</div>
+					<div>
+						<strong>Copyright</strong> Example Company © 2014-2015
+					</div>
+				</div>
+			</div>
 
 		</div>
 
