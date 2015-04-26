@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Section</h5></div>
+                 <div class="ibox-content">
 <p>
   <strong>Name:</strong>
   <%= @section.name %>
@@ -10,5 +17,9 @@
   <%= @section.description %>
 </p>
 
-<%= link_to 'Edit', edit_section_path(@section) %> |
-<%= link_to 'Back', sections_path %>
+<div class="hr-line-dashed"></div>
+ <div class="form-group"><%= link_to 'Edit', edit_section_path(@section),:class=>"btn btn-primary" %> &nbsp;&nbsp;<%= link_to 'Back', sections_path,:class=>"btn btn-primary" %></div>
+
+</div>
+
+</div></div></div>
