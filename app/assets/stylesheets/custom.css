@@ -2,3 +2,9 @@
 .margin_0{
   margin:0px;
 }
+
+
+.blank-panel .panel-heading {
+/*padding-bottom: 0;*/
+padding-bottom: 12px;
+}

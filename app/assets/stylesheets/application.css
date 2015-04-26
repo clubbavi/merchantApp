@@ -15,6 +15,7 @@
  *= require_self
  *= require animate
  *= require style
+ *= require custom
  *= require font-awesome/css/font-awesome
  *= require morris/morris-0.4.3.min
  */
