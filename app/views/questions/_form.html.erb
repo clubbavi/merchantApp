@@ -96,14 +96,14 @@
 					</div>
 				</div>
 				<div class="hr-line-dashed"></div>
-				<div class="form-group" id="question_value">
+				<div class="form-group question_value" style="display: none">
 					<%= f.label :question_value ,:class => "col-sm-2 control-label" %>
 					<div class="col-sm-10">
 						<%= f.text_field :question_value ,:class => "form-control"%>
 					</div>
 				</div>
 				
-				<div class="hr-line-dashed"></div>
+				<div class="hr-line-dashed question_value" style="display: none"></div>
 				<div class="form-group">
 					 <div class="col-sm-2"></div>
                     <div class="col-sm-10">
@@ -120,9 +120,9 @@
 $(document).ready(function (e) {
     $('#question').change(function () {
         if ($(this).val() == 'Listbox' || $(this).val() == 'Dropdown' || $(this).val() == 'Radiobutton') {
-            $('#question_value').show();
+            $('.question_value').show();
         } else {
-            $('#question_value').hide();
+            $('.question_value').hide();
         }
     });
 });

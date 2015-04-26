@@ -4,7 +4,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.integer :category_id
-      t.integer :product_id
+      t.integer :product_id, array: true
       t.integer :section_id
       t.integer :question_id
 

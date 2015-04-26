@@ -2,56 +2,62 @@
 	<%if @pro_id %>
 	<%@sections.each do |section|%>
 	<% section.each do |sec|%>
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h3 id="panel-title" class="panel-title"> <%= sec.name %> </h3>
-		</div>
-		<div class="panel-body">
-			<% @questions_arr = sec.questions.all%>
-			<%if @questions_arr %>
-			<ul class="list-group">
-				<%@questions_arr.each do |que|%>
-				<li class="list-group-item">
-					<%= que.question %>					 
-					<%if que.question_type == "Textbox" %>
-					<input name="q[<%= que.id %>]" type="text" />
-					<% elsif que.question_type == "Dropdown" %>
-					<%if que.question_value %>
-					<% dpv = que.question_value.split(',')%>
-					<select name="q[<%= que.id %>]"  class="form-control">
-						<% dpv.each do |dp| %>
-						<option value="<%= dp %>" ><%= dp %></value>
+	<div class="panel-group" id="accordion">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h5 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne<%= sec.id %>" aria-expanded="true" class=""><%= sec.name %></a></h5>
+			</div>
+			<div id="collapseOne<%= sec.id %>" class="panel-collapse collapse in" aria-expanded="true">
+				<div class="panel-body">
+					<% @questions_arr = sec.questions.all%>
+					<%if @questions_arr %>
+					<ul class="list-group">
+						<%@questions_arr.each do |que|%>
+						<li class="list-group-item">
+							<%= que.question %>
+							<%if que.question_type == "Textbox" %>
+							<input name="q[<%= que.id %>]" type="text" />
+							<% elsif que.question_type == "Dropdown" %>
+							<%if que.question_value %>
+							<% dpv = que.question_value.split(',')%>
+							<select name="q[<%= que.id %>]"  class="form-control">
+								<% dpv.each do |dp| %>
+								<option value="<%= dp %>" ><%= dp %></value>
+									<%end%>
+							</select>
+							<!-- <#%#= select_tag q[que.id], options_for_select(dpv) %> -->
+							<%end%>
+							<% elsif que.question_type == "Listbox" %>
+							<%if que.question_value %>
+							<% dpv = que.question_value.split(',')%>
+							<select name="q[<%= que.id %>]"  class="form-control" multiple="multiple">
+								<% dpv.each do |dp| %>
+								<option value="<%= dp %>" ><%= dp %></value>
+									<%end%>
+							</select>
+							<!-- <%#= select_tag q[que.id], options_for_select(dpv) %> -->
+							<%end%>
+							<% elsif que.question_type == "Radiobutton" %>
+							<%if que.question_value%>
+							<% dpv = que.question_value.split(',')%>
+							<%dpv.each do |rv|%>
+							<input name="q[<%= que.id %>]" type="radio"   value="<%= rv %>"/>
+							<%= rv %>
+							<%end%>
+							<%end%>
+							<% elsif que.question_type == "Checkbox" %>
+							<input name="q[<%= que.id %>]" type="checkbox"  value="<%= que.question %>"/>
+							<%end%>
+						</li>
 						<%end%>
-					</select> 
-					<!-- <#%#= select_tag q[que.id], options_for_select(dpv) %> -->
+					</ul>
 					<%end%>
-					<% elsif que.question_type == "Listbox" %>
-					<%if que.question_value %>
-					<% dpv = que.question_value.split(',')%>
-					<select name="q[<%= que.id %>]"  class="form-control" multiple="multiple">
-						<% dpv.each do |dp| %>
-						<option value="<%= dp %>" ><%= dp %></value>
-						<%end%>
-					</select> 
-					<!-- <%#= select_tag q[que.id], options_for_select(dpv) %> -->
-					<%end%>
-					<% elsif que.question_type == "Radiobutton" %>
-					<%if que.question_value%>
-					<% dpv = que.question_value.split(',')%>
-					<%dpv.each do |rv|%>
-					<input name="q[<%= que.id %>]" type="radio"   value="<%= rv %>"/><%= rv %>
-					 <%end%>
-					 <%end%>
-					 <% elsif que.question_type == "Checkbox" %>
-					 <input name="q[<%= que.id %>]" type="checkbox"  value="<%= que.question %>"/>
-					<%end%>
-				</li>
-				<%end%>
-			</ul>
-			<%end%>
+				</div>
+			</div>
 		</div>
 	</div>
 	<%end%>
 	<%end%>
 	<%end%>
 </div>
+

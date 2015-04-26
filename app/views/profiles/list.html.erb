@@ -1,0 +1,51 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>Profiles</h5>
+				<span><%= link_to 'New Profile', new_profile_path ,:class=>"btn btn-primary pull-right"%></span>
+			</div>
+			<div class="ibox-content">
+				<div class="table-responsive tableoverflow">
+					<table class="table table-striped tablewidth">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Question</th>
+								<th colspan="16"></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<% @profiles.each do |profile| %>
+							<tr>
+								<td><%= profile.id %></td>
+								<td><%if profile.category_id %><%= Category.find( profile.category_id).name %> <%end%></td>
+								<td><%if profile.product_id %> <%= Product.find( profile.product_id).name %> <%end%></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><%= link_to '', profile, :class=>"fa fa-eye" %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<%= link_to '', edit_profile_path(profile) , :class=>"fa fa-pencil-square-o"%>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= link_to '', profile, method: :delete, data: { confirm: 'Are you sure?'}, :class=>"fa fa-trash-o"%> </td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+				<br>
+
+			</div>
+		</div>
+	</div>
+</div>
+
