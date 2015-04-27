@@ -13,6 +13,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    question_answers = @profile.profile_answeres.all
   end
 
   # GET /profiles/new
@@ -37,7 +38,7 @@ class ProfilesController < ApplicationController
       products.each do |p|
       if p != ''
       @sections << p.sections.all
-      puts @sections.inspect      
+      @sections = @sections.uniq { |x| x[:id] }      
       # puts "------------------------------"  
       # if @sections    
       # @sections.each do |sect|
@@ -51,11 +52,9 @@ class ProfilesController < ApplicationController
            # end
       # end
       # end
-      # puts "------------------------------"  
-      
+      # puts "------------------------------"        
       end
-      end
-          
+      end          
     end
 
      
