@@ -1,0 +1,20 @@
+<%if @pro_id%>
+<label class="col-sm-2 control-label">Associate with Section</label>
+<div class="col-sm-10">
+	<select name="section[]"  class="form-control" multiple="multiple">
+		<% @sections.each do |sec| %>
+		<% sec.each do |s| %>
+		<% if @selected_id.present? %>
+		<%if @selected_id.include? (s.id) %>
+		<option value="<%= s.id %>" selected="selected"><%= s.name %></option>
+		<% else %>
+		<option value="<%= s.id %>" ><%= s.name %></option>
+		<% end %>
+		<% else %>
+		<option value="<%= s.id %>" ><%= s.name %></option>
+		<% end %>
+		<% end %>
+		<%end%>
+	</select>
+</div>
+<%end%>
