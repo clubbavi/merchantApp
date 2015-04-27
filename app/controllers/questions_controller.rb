@@ -14,20 +14,20 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-  @sections = []
+    @sections = []
     @question = Question.new
     @type = ["Textbox","Dropdown","Listbox","Radiobutton","Checkbox"]
-     if params[:pro_id]
+    if params[:pro_id]
       @pro_id = params[:pro_id]
       @pro_id.delete_at 0
       products = Product.find(@pro_id)
       products.each do |p|
-      if p != ''
-      @sections << p.sections.all
-      @sections = @sections.uniq { |x| x[:id] }
+        if p != ''
+          @sections << p.sections.all
+          @sections = @sections.uniq { |x| x[:id] }
+        end
       end
-      end
-     end
+    end
     
   end
 
@@ -50,21 +50,27 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    products = Product.find(params[:product])
-    @section = Section.find(params[:section])
-    @question = Question.new(question_params)
+    params[:product] = nil
+    if params[:product].blank?
+      flash[:error] = "Please select atleast one Product"  
+      redirect_to new_question_path
+    else
+      products = Product.find(params[:product])
+      @section = Section.find(params[:section]) if params[:section].present?
+      @question = Question.new(question_params)
 
-    respond_to do |format|
-      if @question.save
-        @question.sections << @section
-        @question.products << products
-        format.html { redirect_to questions_url, notice: 'Question was successfully created.' }
-        format.json { render :index, status: :created, location: @question }
-      else
-        format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @question.save
+          @question.sections << @section
+          @question.products << products
+          format.html { redirect_to questions_url, notice: 'Question was successfully created.' }
+          format.json { render :index, status: :created, location: @question }
+        else
+          format.html { render :new }
+          format.json { render json: @question.errors, status: :unprocessable_entity }
+        end
       end
-    end
+    end  
   end
 
   # PATCH/PUT /questions/1
