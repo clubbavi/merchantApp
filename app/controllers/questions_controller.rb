@@ -50,7 +50,6 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    params[:product] = nil
     if params[:product].blank?
       flash[:error] = "Please select atleast one Product"  
       redirect_to new_question_path
