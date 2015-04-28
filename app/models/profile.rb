@@ -1,5 +1,4 @@
 class Profile < ActiveRecord::Base
-  has_many :profile_answere
-  
-  serialize :product_id
+  has_many :profile_answeres
+   
 end

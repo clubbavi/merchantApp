@@ -27,24 +27,35 @@ class QuestionsController < ApplicationController
           @sections = @sections.uniq { |x| x[:id] }
         end
       end
-    end
-    
+    end    
   end
 
   # GET /questions/1/edit
   def edit
     @type = ["Textbox","Dropdown","Listbox","Radiobutton","Checkbox"]
-    @selected_id = []
-    @selected_product_id = []
-    @sections = Section.all
-    puts @question.sections.inspect
-    @question.sections.each do |secid|
-      @selected_id << secid.id
-    end
-
-    @question.products.each do |proid|
-      @selected_product_id << proid.id
-    end
+    @sections = []
+   if params[:pro_id]
+      @pro_id = params[:pro_id]
+      @pro_id.delete_at 0
+      products = Product.find(@pro_id)
+      products.each do |p|
+        if p != ''
+          @sections << p.sections.all
+          @sections = @sections.uniq { |x| x[:id] }
+        end
+      end
+    end    
+    
+    # @selected_id = []
+    # @selected_product_id = []
+    # @sections = Section.all
+    # puts @question.sections.inspect
+    # @question.sections.each do |secid|
+      # @selected_id << secid.id
+    # end
+     # @question.products.each do |proid|
+      # @selected_product_id << proid.id
+    # end
   end
 
   # POST /questions

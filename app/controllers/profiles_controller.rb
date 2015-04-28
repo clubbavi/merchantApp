@@ -13,7 +13,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    question_answers = @profile.profile_answeres.all
+    @question_answers = @profile.profile_answeres.all
   end
 
   # GET /profiles/new
@@ -66,6 +66,31 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+     @category = Category.all
+     @profile = Profile.new
+     @questions_arr = []
+     @sections  = []
+
+    if params[:cat_id]
+      @cat_id =  params[:cat_id]
+      category = Category.find(params[:cat_id])
+      @product = category.products.all
+      puts @product.inspect
+    end
+
+    if params[:pro_id]
+      @pro_id = params[:pro_id]
+      params[:pro_id].delete_at 0
+      products = Product.find(params[:pro_id])
+      puts products.inspect
+      products.each do |p|
+      if p != ''
+      @sections << p.sections.all
+      @sections = @sections.uniq { |x| x[:id] }      
+      end
+      end          
+    end
+
   end
 
   # POST /profiles
@@ -128,6 +153,6 @@ class ProfilesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def profile_params
-    params.require(:profile).permit(:name, :email, :category_id,  :section_id, :question_id, :product_id => [])
+    params.require(:profile).permit(:name, :email, :category_id,  :section_id, :question_id, :product_id)
   end
 end
