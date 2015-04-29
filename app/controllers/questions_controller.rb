@@ -65,21 +65,26 @@ class QuestionsController < ApplicationController
       flash[:alert] = "Please select atleast one Product"
       redirect_to new_question_path
     else
-      products = Product.find(params[:product])
-      @section = Section.find(params[:section]) if params[:section].present?
-      @question = Question.new(question_params)
+      if params[:section].blank?
+        flash[:alert] = "Please select atleast one Section"
+        redirect_to new_question_path
+      else  
+        products = Product.find(params[:product])
+        @section = Section.find(params[:section]) if params[:section].present?
+        @question = Question.new(question_params)
 
-      respond_to do |format|
-        if @question.save
-          @question.sections << @section
-          @question.products << products
-          format.html { redirect_to questions_url, notice: 'Question was successfully created.' }
-          format.json { render :index, status: :created, location: @question }
-        else
-          format.html { render :new }
-          format.json { render json: @question.errors, status: :unprocessable_entity }
-        end
-      end
+        respond_to do |format|
+          if @question.save
+            @question.sections << @section
+            @question.products << products
+            format.html { redirect_to questions_url, notice: 'Question was successfully created.' }
+            format.json { render :index, status: :created, location: @question }
+          else
+            format.html { render :new }
+            format.json { render json: @question.errors, status: :unprocessable_entity }
+          end
+        end     
+      end  
     end  
   end
 
@@ -107,7 +112,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to questions_url, notice: 'Question was successfully deleted.' }
       format.json { head :no_content }
     end
   end

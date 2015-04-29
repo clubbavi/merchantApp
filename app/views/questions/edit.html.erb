@@ -2,23 +2,11 @@
 	<div class="col-lg-12">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<%if @question.id%>
-				<h5>Edit Question</h5>
-				<%else%>
-				<h5>Create Question</h5>
-				<%end%>
-				<!-- <div class="ibox-tools">
-				<a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a>
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-wrench"></i> </a>
-
-				<a class="close-link"> <i class="fa fa-times"></i> </a>
-				</div> -->
+				<h3>Edit Question</h3>
 			</div>
 			<div class="ibox-content">
 				<%= form_for(@question , :html => {:class => "form-horizontal"}) do |f| %>
-
 				<div class="form-group">
-
 					<% if @question.errors.any? %>
 					<div id="error_explanation">
 						<h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
@@ -35,7 +23,7 @@
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-2 control-label">Associate with Product</label>
+					<label class="col-sm-2 control-label"><span style="color:red;">*</span> Associate with Product</label>
 					<div class="col-sm-10">
 						<select name="product[]" onchange="question_productfn(this.options);" class="form-control" multiple="multiple">
 							<% Product.all.each do |product| %>
@@ -54,7 +42,7 @@
 				</div>
 
 				<div class="form-group" id="section_options">
-					<label class="col-sm-2 control-label">Associate with Product</label>
+					<label class="col-sm-2 control-label"><span style="color:red;">*</span> Associate with Product</label>
 					<div class="col-sm-10">
 						<select name="section[]"  class="form-control" multiple="multiple">
 							
@@ -64,7 +52,7 @@
 
 				<div class="hr-line-dashed"></div>
 				<div class="form-group">
-					<%= f.label :question,:class => "col-sm-2 control-label" %>
+					<label class="col-sm-2 control-label"><span style="color:red;">*</span> Question</label>
 					<div class="col-sm-10">
 						<%= f.text_field :question,:class => "form-control" %>
 					</div>
