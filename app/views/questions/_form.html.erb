@@ -110,17 +110,18 @@
       var count = 0;
       for (var intLoop=0; intLoop < opt.length; intLoop++) {
          if (opt[intLoop].selected) {
-              count++;
-             // alert(count)
-             selected[count] = opt[intLoop].value;
-              // console.log(selected)
+              count++;             
+             selected[count] = opt[intLoop].value;              
          }
       }       
-        console.log(selected[1])
-        $.ajax({url:'<% url_for new_question_path %>',
-		data:{"pro_id": selected},
-		dataType:'script'
-		})
+      
+        
+    $.ajax({url:'<% url_for new_question_path %>',
+    data:{"pro_id": selected},
+    dataType:'script'
+    })
+   
+       
     }
 	
     $('#question').change(function () {
