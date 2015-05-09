@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   # GET /profiles.json
   def index
     @profiles = Profile.all
+    # @profiles = Profile.order(:created_at).page params[:page]
   end
   
   def list

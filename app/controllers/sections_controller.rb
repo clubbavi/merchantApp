@@ -4,7 +4,8 @@ class SectionsController < ApplicationController
   # GET /sections
   # GET /sections.json
   def index
-    @sections = Section.all
+    # @sections = Section.all
+    @sections = Section.order(:created_at).page params[:page]
   end
 
   # GET /sections/1
