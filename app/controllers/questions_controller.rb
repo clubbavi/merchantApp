@@ -92,11 +92,19 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
+    if params[:product].blank?
+      flash[:alert] = "Please select atleast one Product"
+      redirect_to new_question_path
+    else
+      if params[:section].blank?
+        flash[:alert] = "Please select atleast one Section"
+        redirect_to new_question_path
+      else  
     @product = Product.find(params[:product])
     @section = Section.find(params[:section])
     @question.sections = @section
     @question.products = @product
-    @question.save
+    @question.save    
     respond_to do |format|
       if @question.update(question_params)
         format.html { redirect_to questions_url, notice: 'Question was successfully updated.' }
@@ -105,6 +113,8 @@ class QuestionsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
+    end
+    end
     end
   end
 

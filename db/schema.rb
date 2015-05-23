@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20150425134658) do
     t.string   "name"
     t.string   "email"
     t.integer  "category_id"
-    t.integer  "product_id"
+    t.string   "product_id"
     t.integer  "section_id"
     t.integer  "question_id"
     t.datetime "created_at"

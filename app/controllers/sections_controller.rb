@@ -33,6 +33,10 @@ class SectionsController < ApplicationController
   # POST /sections
   # POST /sections.json
   def create
+   if params[:product].blank?
+      flash[:alert] = "Please select atleast one Product"
+      redirect_to new_section_path
+    else
     @product = Product.find(params[:product])
     @section = Section.new(section_params)
 
@@ -46,6 +50,7 @@ class SectionsController < ApplicationController
         format.json { render json: @section.errors, status: :unprocessable_entity }
       end
     end
+   end
   end
 
   # PATCH/PUT /sections/1

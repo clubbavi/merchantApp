@@ -1,6 +1,186 @@
-<h1>Editing profile</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Profile Creation</h5>
+                <div class="ibox-tools">
+                    <!-- <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a> -->
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#">Config option 1</a>
+                        </li>
+                        <li><a href="#">Config option 2</a>
+                        </li>
+                    </ul>
+                  <!--   <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a> -->
+                </div>
+            </div>
+             <div class="ibox-content">
+            <div class="panel blank-panel">
+            <div class="panel-heading">
+            <div class="panel-options">
+            <ul class="nav nav-tabs">
+            <li class="active">
+            <a data-toggle="tab" href="#tab-1" aria-expanded="true">First Tab</a></li> 
+            <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">Second Tab</a></li>
+            </ul>
+            </div></div>
+            <div class="panel-body">
+            <div class="tab-content"><div id="tab-1" class="tab-pane active">
+                                 <%= form_for(@profile,:class=>"form-horizontal new_profile") do |f| %>
+                            <!-- <form method="post" id="new_profile" class="form-horizontal new_profile"> -->
+                               <div class="form-group">
+                               	<label class="col-sm-2 control-label">Category</label>
+                                    <div class="col-sm-10">
+                                    	<%= @profile.inspect%>
+                                      <select name="profile[category_id]" onchange="categoryfn(this.value);" class="form-control m-b">
+                                            <% @category.each do |c| %>
+                                            <%if @profile.category_id == c.id%>
+                                             <option selected="selected" value="<%= c.id %>" ><%= c.name %></option>
+                                            <%else%>
+                                            <option value="<%= c.id %>" ><%= c.name %></option>
+                                            <%end%>
+                                            <%end%>
+                                        </select> 
+                                    </div>
+                                </div>
+                               
+                                <div class="form-group" id="product_slection">
+                                	<label class="col-sm-2 control-label">Product </label>
+                                   <div class="col-sm-10">                                    									    
+								    <select name="product_id[]" id="prductfn" multiple="multiple"  onchange="editproductfn(this.options);" class="form-control" >
+								      <%= @product = selected_product(@profile.category_id)%>
+								      <% @product.each do |p| %>
+								      <% if @profile.product_id.split(',').include? p.id.to_s %>
+								      <option selected="selected" value="<%= p.id %>" ><%= p.name %></value>
+								      	<%else%>
+								      <option value="<%= p.id %>" ><%= p.name %></value>
+								      <%end%>
+								      <%end%>
+								    </select> 
+								   </div>
+                                </div>
+                                
+                                <div style="margin-top: 50px" class="form-group" id="section_slection">
+                                    <div class="col-md-12" style="margin-top: 50px;">                                    	
+                                    	<% @sections = selected_sections(@profile.product_id)%>
+                                    	<%@sections.each do |section|%>
+											<% section.each do |sec|%>
+											<div class="panel-group" id="accordion">
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<h5 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne<%= sec.id %>" aria-expanded="true" class=""><%= sec.name %></a></h5>
+													</div>
+													<div id="collapseOne<%= sec.id %>" class="panel-collapse collapse in" aria-expanded="true">
+														<div class="panel-body">
+															<% @questions_arr = sec.questions.all%>
+															<%if @questions_arr %>
+															<ul class="list-group">
+																<%@questions_arr.each do |que|%>
+																<li class="list-group-item">
+																	<%= que.question %>
+																	<%if que.question_type == "Textbox" %>
+																		<%if @old_question_answeres.include? que.id %>
+																		<input name="q[<%= que.id %>]" type="text" value='<%= old_question_answere(@profile.id, que.id) %>'/>
+																		<%else%>
+																		<input name="q[<%= que.id %>]" type="text" />
+																		<%end%>
+																	<% elsif que.question_type == "Dropdown" %>
+																	<%if que.question_value %>
+																	<% dpv = que.question_value.split(',')%>
+																	<select name="q[<%= que.id %>]"  class="form-control">
+																		<% dpv.each do |dp| %>
+																		<option value="<%= dp %>" ><%= dp %></value>
+																			<%end%>
+																	</select>
+																	<!-- <#%#= select_tag q[que.id], options_for_select(dpv) %> -->
+																	<%end%>
+																	<% elsif que.question_type == "Listbox" %>
+																	<%if que.question_value %>
+																	<% dpv = que.question_value.split(',')%>
+																	<select name="q[<%= que.id %>]"  class="form-control" multiple="multiple">
+																		<% dpv.each do |dp| %>
+																		<option value="<%= dp %>" ><%= dp %></value>
+																			<%end%>
+																	</select>
+																	<!-- <%#= select_tag q[que.id], options_for_select(dpv) %> -->
+																	<%end%>
+																	<% elsif que.question_type == "Radiobutton" %>
+																	<%if que.question_value%>
+																	<% dpv = que.question_value.split(',')%>
+																	<%dpv.each do |rv|%>
+																	<input name="q[<%= que.id %>]" type="radio"   value="<%= rv %>"/>
+																	<%= rv %>
+																	<%end%>
+																	<%end%>
+																	<% elsif que.question_type == "Checkbox" %>
+																	<input name="q[<%= que.id %>]" type="checkbox"  value="<%= que.question %>"/>
+																	<%end%>
+																</li>
+																<%end%>
+															</ul>
+															<%end%>
+														</div>
+													</div>
+												</div>
+											</div>
+											<%end%>
+										<%end%>
+                                    </div>
+                                </div>
+                               
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                       <%= f.submit :class => "btn btn-primary" %>
+                                    </div>
+                                </div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @profile %> |
-<%= link_to 'Back', profiles_path %>
+                            <!-- </form> -->
+                            <%end%>                                
+                                   
+                                </div>
+                                <div id="tab-2" class="tab-pane">
+                                    second tab conents
+                                </div>
+                                </div>
+                                </div>
+                                </div>            			
+                        </div>
+        </div>
+    </div>
+</div>
+<script>
+  function categoryfn(cat){
+    $.ajax({url:'<% url_for edit_profile_path(@profile) %>',
+    data:{"cat_id": cat},
+    dataType:'script'
+    })
+  }
+  
+  function editproductfn(opt){
+	 	 
+	  var selected = new Array();
+      var count = 0;
+      for (var intLoop=0; intLoop < opt.length; intLoop++) {
+         if (opt[intLoop].selected) {
+              count++;
+             // alert(count)
+             selected[count] = opt[intLoop].value;
+              // console.log(selected)
+         }
+      }       
+        
+        $.ajax({url:'<% url_for new_profile_path %>',
+		data:{"pro_id": selected},
+		dataType:'script'
+		})
+      
+    }
+    
+</script> 

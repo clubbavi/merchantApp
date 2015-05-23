@@ -37,7 +37,7 @@
 								<td></td>
 								<td>
 								<%= link_to '', profile, :class=>"fa fa-eye" %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<!-- <#%= link_to '', edit_profile_path(profile) , :class=>"fa fa-pencil-square-o"%> -->
+								<%= link_to '', edit_profile_path(profile) , :class=>"fa fa-pencil-square-o"%>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= link_to '', profile, method: :delete, data: { confirm: 'Are you sure?'}, :class=>"fa fa-trash-o"%> </td>
 							</tr>
 							<% end %>

@@ -36,11 +36,13 @@ class ProfilesController < ApplicationController
       params[:pro_id].delete_at 0
       products = Product.find(params[:pro_id])
       puts products.inspect
+      puts "----------------------------------"
       products.each do |p|
       if p != ''
       @sections << p.sections.all
-      @sections = @sections.uniq { |x| x[:id] }      
-      # puts "------------------------------"  
+      # @sections = @sections.uniq { |x| x[:id] }   
+      puts    @sections.inspect
+        puts "------------------------------"  
       # if @sections    
       # @sections.each do |sect|
         # puts sect.inspect
@@ -67,11 +69,16 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    puts "_____________ edit _______________________________"
+    @profile.inspect 
+    puts "_____________ ____________________________________"
+     
      @category = Category.all
-     @profile = Profile.new
+     @product = Product.all
+     
      @questions_arr = []
      @sections  = []
-
+@old_question_answeres = @profile.profile_answeres.collect {|p| p.question_id}  
     if params[:cat_id]
       @cat_id =  params[:cat_id]
       category = Category.find(params[:cat_id])
@@ -87,7 +94,8 @@ class ProfilesController < ApplicationController
       products.each do |p|
       if p != ''
       @sections << p.sections.all
-      @sections = @sections.uniq { |x| x[:id] }      
+      # @sections = @sections.uniq { |x| x[:id] }  
+        
       end
       end          
     end
@@ -98,6 +106,11 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
+    puts "____________________________________________"
+    puts @pid =params[:product_id].join(",")
+    puts @profile.product_id = @pid.to_s
+    puts @profile.inspect
+    puts "____________________________________________"
     respond_to do |format|
         if @profile.save   
           if params[:q]      
@@ -124,8 +137,63 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
+   
+    puts "____________________________________________"
+        @pid = params[:product_id].join(",")
+        @profile.product_id = @pid.to_s
+    puts @profile.inspect
+    puts "____________________________________________"
+    
     respond_to do |format|
       if @profile.update(profile_params)
+        
+        @profile.profile_answeres.delete_all
+         
+         if params[:q]      
+        params[:q].each do |key,value|
+        puts "Param #{key}: #{value}"
+        question_answeres = ProfileAnswere.new
+        question_answeres.profile_id = @profile.id
+        question_answeres.question_id = key
+        question_answeres.answere = value
+        question_answeres.save
+        puts question_answeres.inspect      
+        end
+        end
+        
+            
+                      
+      # if params[:q]      
+        # params[:q].each do |key,value|
+          # puts "#################"
+#            
+          # puts old_question_answeres.inspect
+          # puts key
+          # if old_question_answeres.include? key.to_i
+            # puts "update Param #{key}: #{value} profile id #{@profile.id}" 
+            # @key = key.to_i
+              # # @profile_answere = ProfileAnswere.find_by(:question_id=> key.to_i, :profile_id => @profile.id)
+               # @profile_answere = ProfileAnswere.find(:conditions=>["question_id=? and profile_id=?", @key, @profile.id])
+               # puts "#################"
+              # @profile_answere.inspect
+               # puts "#################"
+              # @profile.profile_answeres.answere = value    
+              # puts @profile.save
+#             
+          # else
+            # puts "new Param #{key}: #{value}"
+            # question_answeres = ProfileAnswere.new
+            # question_answeres.profile_id = @profile.id
+            # question_answeres.question_id = key
+            # question_answeres.answere = value
+            # question_answeres.save
+            # puts question_answeres.inspect  
+#             
+          # end
+#            
+        # end
+      # end
+        
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
       else
@@ -154,6 +222,6 @@ class ProfilesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def profile_params
-    params.require(:profile).permit(:name, :email, :category_id,  :section_id, :question_id, :product_id)
+    params.require(:profile).permit(:name, :email, :category_id,  :section_id, :question_id, :product_id => [])
   end
 end
